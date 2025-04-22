@@ -55,6 +55,7 @@ while True:
 
     if start_clicked and not game:
         game = True
+        start_clicked = False
         bird.fill('Yellow')
         bird_rect.y = 300
         pipe_rect1.x = 760
