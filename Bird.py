@@ -21,6 +21,7 @@ pipe2.fill('Green')
 font = pygame.font.Font(None, 40)
 #Buttons
 start_button = pygame.Rect(100,250,120,50)
+quit_button = pygame.Rect(300,250,120,50)
 def title_screen():
     screen.fill('Black')
     title = font.render("Bird Game", True, (255,255,255))
@@ -48,6 +49,9 @@ while True:
             if event.button == 1:
                     if start_button.collidepoint(mouse_pos):
                         start_clicked = True
+                    if quit_button.collidepoint(mouse_pos):
+                        pygame.quit()
+                        exit()
 
     if start_clicked and not game:
         game = True
