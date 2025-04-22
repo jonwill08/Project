@@ -57,14 +57,19 @@ def draw_menu():
     title = big_font.render("THE BIRD GAME", True, (255, 255, 0))
     screen.blit(title, ((500 - title.get_width()) // 2, 100))
 
-    # Instructions
+    # Instructions for front screen 
     instruction1 = font.render("Press SPACE to fly.", True, (255, 255, 255))
     instruction2 = font.render("Avoid the pipes to stay alive!", True, (255, 255, 255))
     instruction3 = font.render("Click 'Start' to begin or 'Exit' to leave.", True, (255, 255, 255))
+    Question=font.render("Are you up for the challenge?", True, (255, 255, 255))
+
+
 
     screen.blit(instruction1, ((500 - instruction1.get_width()) // 2, 500))
     screen.blit(instruction2, ((500 - instruction2.get_width()) // 2, 540))
     screen.blit(instruction3, ((500 - instruction3.get_width()) // 2, 580))
+    screen.blit(Question, ((500 - Question.get_width()) // 2, 540))
+
 
     # Buttons
     pygame.draw.rect(screen, "White", start_button)
