@@ -65,8 +65,8 @@ def draw_menu():
 
 
 
-    screen.blit(instruction1, ((500 - instruction1.get_width()) // 2, 500))
-    screen.blit(instruction2, ((500 - instruction2.get_width()) // 2, 540))
+    screen.blit(instruction1, ((500 - instruction1.get_width()) // 2, 460))
+    screen.blit(instruction2, ((500 - instruction2.get_width()) // 2, 500))
     screen.blit(instruction3, ((500 - instruction3.get_width()) // 2, 580))
     screen.blit(Question, ((500 - Question.get_width()) // 2, 540))
 
@@ -96,7 +96,6 @@ def draw_gameover(score):
     pygame.draw.rect(screen, "White", exit_game_button)
     screen.blit(play_again_txt, (play_again_button.x + 10, play_again_button.y + 10))
     screen.blit(exit_txt, (exit_game_button.x + 25, exit_game_button.y + 10))
-
 def show_score(score):
     display = font.render(f"Score: {score}", True, (255, 255, 255))
     screen.blit(display, (10, 10))
