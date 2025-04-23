@@ -22,6 +22,7 @@ font = pygame.font.Font(None, 40)
 #Buttons
 start_button = pygame.Rect(100,250,120,50)
 quit_button = pygame.Rect(300,250,120,50)
+background = pygame.image.load("/Users/jonwilliams/PycharmProjects/PythonProject3/img.png")
 def title_screen():
     screen.fill('Black')
     title = font.render("Bird Game", True, (255,255,255))
@@ -56,11 +57,13 @@ while True:
     if start_clicked and not game:
         game = True
         start_clicked = False
+
         bird.fill('Yellow')
         bird_rect.y = 300
         pipe_rect1.x = 760
         pipe_rect2.x = 760
     if game:
+
         if keys[pygame.K_SPACE]:
             bird_rect = bird_rect.move(0,-8)
             screen.fill(color=(0,0,0))
@@ -83,7 +86,7 @@ while True:
         pipe_rect1 = pipe_rect1.move(-5, 0)
         pipe_rect2 = pipe_rect2.move(-5, 0)
         bird_rect = bird_rect.move(0, 5)
-        screen.fill(color=(0, 0, 0))
+        screen.blit(pygame.transform.scale(background, (500,750)), (0,0))
         screen.blit(bird, (bird_rect.x, bird_rect.y))
         screen.blit(pipe1, (pipe_rect1.x, pipe_rect1.y))
         screen.blit(pipe2, (pipe_rect2.x, pipe_rect2.y))
