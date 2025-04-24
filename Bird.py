@@ -8,8 +8,8 @@ clock = pygame.time.Clock()
 
 # Bird setup
 bird_rect = pygame.Rect(150, 300, 60, 60)
-bird = pygame.Surface((bird_rect.width, bird_rect.height))
-bird.fill("Yellow")
+bird_origin = pygame.image.load("birdsquare.PNG").convert_alpha()
+bird_new = pygame.transform.scale(bird_origin, (60,60))
 
 # Pipes
 pipe_rect1 = pygame.Rect(760, -450, 100, 600)
@@ -62,7 +62,7 @@ def draw_menu():
     elif hover_offset <= -10:
         hover_direction = 1
     hover_offset += hover_direction * 0.3
-    screen.blit(bird, (220, 280 + hover_offset))
+    screen.blit(bird_new, (220, 280 + hover_offset))
 
     # Title
     title = big_font.render("THE BIRD GAME", True, (255, 255, 0))
@@ -132,7 +132,6 @@ while True:
                         menu = False
                         game = True
                         score = 0
-                        bird.fill("Yellow")
                         bird_rect.y = 300
                         pipe_rect1.x = 760
                         pipe_rect1.y = random.randint(-500, -200)
@@ -175,7 +174,6 @@ while True:
             scored_pipe = False
 
         if bird_rect.colliderect(pipe_rect1) or bird_rect.colliderect(pipe_rect2):
-            bird.fill("Yellow")
             game = False
             game_over = True
             def death_sound(sound):
@@ -187,7 +185,7 @@ while True:
             scored_pipe = True
 
         screen.blit(pygame.transform.scale(background, (500,750)), (0,0))
-        screen.blit(bird, bird_rect.topleft)
+        screen.blit(bird_new, bird_rect.topleft)
         screen.blit(pipe1, pipe_rect1.topleft)
         screen.blit(pipe2, pipe_rect2.topleft)
         show_score(score)
