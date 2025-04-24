@@ -29,14 +29,14 @@ hover_offset = 0
 hover_direction = 1
 
 #Death sound (when bird hits the pipe)
-pygame.mixer.init()
-def death_sound(sound):
-    sound1= pygame.mixer.Sound("collision.wav")
-    sound1.play()
+#pygame.mixer.init()
+#def death_sound(sound):
+#    sound1= pygame.mixer.Sound("collision.wav")
+#    sound1.play()
 #Space bar sound
-def jump_sound(sound):
-    sound2 = pygame.mixer.Sound("jump.wav")
-    sound2.play()
+#def jump_sound(sound):
+#    sound2 = pygame.mixer.Sound("jump.wav")
+#    sound2.play()
 
 # Buttons (placed near bottom)
 start_button = pygame.Rect(100, 630, 120, 50)
@@ -152,9 +152,9 @@ while True:
     if game:
         if keys[pygame.K_SPACE]:
             bird_rect = bird_rect.move(0, -8)
-            def jump_sound(sound):
-    sound2 = pygame.mixer.Sound("jump.wav")
-    sound2.play()
+    #        def jump_sound(sound):
+    #sound2 = pygame.mixer.Sound("jump.wav")
+    #sound2.play()
 
         bird_rect = bird_rect.move(0, 5)
 
@@ -176,9 +176,9 @@ while True:
         if bird_rect.colliderect(pipe_rect1) or bird_rect.colliderect(pipe_rect2):
             game = False
             game_over = True
-            def death_sound(sound):
-    sound1= pygame.mixer.Sound("collision.wav")
-    sound1.play()
+    #        def death_sound(sound):
+    #sound1= pygame.mixer.Sound("collision.wav")
+    #sound1.play()
 
         if pipe_rect1.x + pipe_rect1.width < bird_rect.x and not scored_pipe:
             score += 1
