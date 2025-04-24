@@ -28,6 +28,16 @@ big_font = pygame.font.Font(None, 70)
 hover_offset = 0
 hover_direction = 1
 
+#death sound effect (when bird hits the pipe)
+pygame.mixer.init()
+def death_sound(sound):
+    sound1= pygame.mixer.Sound("collision.wav")
+    sound1.play()
+#anytime the space bar is used
+def jump_sound(sound):
+    sound2 = pygame.mixer.Sound("jump.wav")
+    sound2.play()
+
 # Buttons (placed near bottom)
 start_button = pygame.Rect(100, 630, 120, 50)
 exit_button = pygame.Rect(280, 630, 120, 50)
