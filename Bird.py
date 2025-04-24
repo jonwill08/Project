@@ -153,6 +153,9 @@ while True:
     if game:
         if keys[pygame.K_SPACE]:
             bird_rect = bird_rect.move(0, -8)
+            def jump_sound(sound):
+    sound2 = pygame.mixer.Sound("jump.wav")
+    sound2.play()
 
         bird_rect = bird_rect.move(0, 5)
 
@@ -175,6 +178,9 @@ while True:
             bird.fill("Yellow")
             game = False
             game_over = True
+            def death_sound(sound):
+    sound1= pygame.mixer.Sound("collision.wav")
+    sound1.play()
 
         if pipe_rect1.x + pipe_rect1.width < bird_rect.x and not scored_pipe:
             score += 1
