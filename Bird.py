@@ -1,7 +1,14 @@
 import pygame, random
 from sys import exit
 
+#Initialize pygame and mixer
 pygame.init()
+pygame.mixer.init()
+
+# Load sound effects (.ogg files)
+jump_sound = pygame.mixer.Sound("RetroJump.wav")
+collision_sound = pygame.mixer.Sound("collision.wav")
+
 screen = pygame.display.set_mode((500, 750))
 pygame.display.set_caption("The Bird")
 clock = pygame.time.Clock()
@@ -152,10 +159,7 @@ while True:
     if game:
         if keys[pygame.K_SPACE]:
             bird_rect = bird_rect.move(0, -8)
-    #        def jump_sound(sound):
-    #sound2 = pygame.mixer.Sound("jump.wav")
-    #sound2.play()
-
+            jump_sound.play()
         bird_rect = bird_rect.move(0, 5)
 
         if bird_rect.y > 690:
@@ -174,11 +178,11 @@ while True:
             scored_pipe = False
 
         if bird_rect.colliderect(pipe_rect1) or bird_rect.colliderect(pipe_rect2):
+            collision_sound.play()
+            pygame.time.delay(500)
             game = False
             game_over = True
-    #        def death_sound(sound):
-    #sound1= pygame.mixer.Sound("collision.wav")
-    #sound1.play()
+            
 
         if pipe_rect1.x + pipe_rect1.width < bird_rect.x and not scored_pipe:
             score += 1
