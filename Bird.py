@@ -12,7 +12,9 @@ collision_sound = pygame.mixer.Sound("collision.wav")
 screen = pygame.display.set_mode((500, 750))
 pygame.display.set_caption("The Bird")
 clock = pygame.time.Clock()
-
+#Images
+background = pygame.image.load("./img.png")
+pipe = pygame.image.load("pipe.png").convert_alpha()
 # Bird setup
 bird_rect = pygame.Rect(150, 300, 60, 60)
 bird_origin = pygame.image.load("birdsquare.PNG").convert_alpha()
@@ -20,12 +22,12 @@ bird_new = pygame.transform.scale(bird_origin, (60,60))
 
 # Pipes
 pipe_rect1 = pygame.Rect(760, -450, 100, 600)
-pipe1 = pygame.Surface((pipe_rect1.width, pipe_rect1.height))
-pipe1.fill("Green")
+pipe1 = pygame.transform.scale(pipe,(pipe_rect1.width, pipe_rect1.height))
+
 
 pipe_rect2 = pygame.Rect(760, pipe_rect1.y + 850, 100, 600)
-pipe2 = pygame.Surface((pipe_rect2.width, pipe_rect2.height))
-pipe2.fill("Green")
+pipe2 = pygame.transform.scale(pipe,(pipe_rect2.width, pipe_rect2.height))
+
 
 # Fonts
 font = pygame.font.Font(None, 40)
@@ -50,8 +52,7 @@ start_button = pygame.Rect(100, 630, 120, 50)
 exit_button = pygame.Rect(280, 630, 120, 50)
 play_again_button = pygame.Rect(100, 400, 150, 60)
 exit_game_button = pygame.Rect(280, 400, 120, 60)
-#Images
-background = pygame.image.load("./img.png")
+
 # Game states
 menu = True
 game = False
@@ -182,7 +183,7 @@ while True:
             pygame.time.delay(500)
             game = False
             game_over = True
-            
+
 
         if pipe_rect1.x + pipe_rect1.width < bird_rect.x and not scored_pipe:
             score += 1
@@ -193,7 +194,7 @@ while True:
         screen.blit(pipe1, pipe_rect1.topleft)
         screen.blit(pipe2, pipe_rect2.topleft)
         show_score(score)
-        pygame.display.update()
+        pygame.display.flip()
         clock.tick(60)
 
     elif menu:
