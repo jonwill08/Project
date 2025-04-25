@@ -9,12 +9,26 @@ pygame.mixer.init()
 jump_sound = pygame.mixer.Sound("RetroJump.wav")
 collision_sound = pygame.mixer.Sound("collision.wav")
 
+#setup window
 screen = pygame.display.set_mode((500, 750))
 pygame.display.set_caption("The Bird")
 clock = pygame.time.Clock()
+
 #Images
 background = pygame.image.load("./img.png")
 pipe = pygame.image.load("pipe.png").convert_alpha()
+
+# Load flame image (NOW flames.png)
+flame_image = pygame.image.load("Flames.JPG").convert_alpha()
+flame_image = pygame.transform.scale(flame_image, (20, 30))
+
+# Flames
+flames = []
+for _ in range(50):
+    x = random.randint(0, 500)
+    y = random.randint(700, 750)
+    flames.append([x, y])
+
 # Bird setup
 bird_rect = pygame.Rect(150, 300, 60, 60)
 bird_origin = pygame.image.load("birdsquare.PNG").convert_alpha()
@@ -37,16 +51,6 @@ big_font = pygame.font.Font(None, 70)
 hover_offset = 0
 hover_direction = 1
 
-#Death sound (when bird hits the pipe)
-#pygame.mixer.init()
-#def death_sound(sound):
-#    sound1= pygame.mixer.Sound("collision.wav")
-#    sound1.play()
-#Space bar sound
-#def jump_sound(sound):
-#    sound2 = pygame.mixer.Sound("jump.wav")
-#    sound2.play()
-
 # Buttons (placed near bottom)
 start_button = pygame.Rect(100, 630, 120, 50)
 exit_button = pygame.Rect(280, 630, 120, 50)
@@ -59,6 +63,10 @@ game = False
 game_over = False
 score = 0
 scored_pipe = False
+
+# Flashing color
+flash_timer = 0
+flash_color = (255, 0, 0)
 
 def draw_menu():
     screen.fill((135, 206, 250))  # Sky blue
@@ -102,11 +110,17 @@ def draw_menu():
 
 def draw_gameover(score):
     screen.fill("Black")
-    game_over_text = big_font.render("Game Over", True, (255, 0, 0))
+    # Draw flames
+    for flame in flames:
+        screen.blit(flame_image, (flame[0], flame[1]))
+
+    # Flashing Game Over text
+    game_over_text = big_font.render("Game Over", True, flash_color)
     score_text = font.render(f"Score: {score}", True, (255, 255, 255))
     prompt = font.render("Play Again or Exit?", True, (255, 255, 255))
     play_again_txt = font.render("Play Again", True, "Black")
     exit_txt = font.render("Exit", True, "Black")
+
 
     screen.blit(game_over_text, (130, 120))
     screen.blit(score_text, (200, 200))
@@ -115,9 +129,6 @@ def draw_gameover(score):
     pygame.draw.rect(screen, "White", exit_game_button)
     screen.blit(play_again_txt, (play_again_button.x + 5, play_again_button.y + 17.5))
     screen.blit(exit_txt, (exit_game_button.x + 30, exit_game_button.y + 17.5))
-    #original code
-    #screen.blit(play_again_txt, (play_again_button.x + 10, play_again_button.y + 10))
-    #screen.blit(exit_txt, (exit_game_button.x + 25, exit_game_button.y + 10))
 
 def show_score(score):
     display = font.render(f"Score: {score}", True, (255, 255, 255))
@@ -127,6 +138,18 @@ def show_score(score):
 while True:
     mouse = pygame.mouse.get_pos()
     keys = pygame.key.get_pressed()
+    # Flashing color timer
+    flash_timer += 1
+    if flash_timer >= 30:
+        flash_color = (255, 255, 255) if flash_color == (255, 0, 0) else (255, 0, 0)
+        flash_timer = 0
+
+    # Update flames
+    for flame in flames:
+        flame[1] -= random.randint(1, 3)
+        if flame[1] < 680:
+            flame[0] = random.randint(0, 500)
+            flame[1] = random.randint(700, 750)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
